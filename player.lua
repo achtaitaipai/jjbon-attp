@@ -1,4 +1,4 @@
-function createPlayer(x,y,dir)
+function createPlayer(x,y,anims,dir)
     local player={
         gridX=x or 0,
         gridY=y or 0,
@@ -7,29 +7,35 @@ function createPlayer(x,y,dir)
         --tile per seconds
         speed=3,
         sprite=love.graphics.newImage('assets/player.png'),
+        anims = anims,
         direction=dir or "bottom"
     }
-    
+    player.currentAnim=player.anims[player.direction]
 
     function player:update(dt)
         if(self.gridX==self.newGridX and self.gridY==self.newGridY)then
             self.newGridX=self.gridX
             self.newGridY=self.gridY
+            self.currentAnim:pause(2)
             if love.keyboard.isDown('up') then
                 self.newGridY=self.newGridY - 1
-                
+                self:defineDirection('top')
+                self.currentAnim:play()
             end
             if love.keyboard.isDown('down') then
                 self.newGridY=self.newGridY + 1
-                
+                self:defineDirection('bottom')
+                self.currentAnim:play()
             end
             if love.keyboard.isDown('left') then
                 self.newGridX=self.newGridX - 1
-                
+                self:defineDirection('left')
+                self.currentAnim:play()
             end
             if love.keyboard.isDown('right') then
-                self.newGridX=self.newGridX + 1
-                
+                self.newGridX=self.newGridX + 1 
+                self:defineDirection('right')
+                self.currentAnim:play()
             end
         else
             if(self.newGridX>self.gridX)then
@@ -50,8 +56,13 @@ function createPlayer(x,y,dir)
         self.yy=pos.y
     end
 
+    function player:defineDirection(dir)
+        self.direction=dir
+        self.currentAnim=self.anims[self.direction]
+    end
+
     function player:draw()
-        love.graphics.draw(self.sprite,self.xx,self.yy)
+        self.currentAnim:draw(self.xx,self.yy)
     end
 
     function player:absPos(px,py)
