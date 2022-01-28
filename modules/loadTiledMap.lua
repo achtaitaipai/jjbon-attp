@@ -43,6 +43,26 @@ function loadTiledMap(map,spriteSheet)
         end
         return false
     end
+
+    function map:getObject(name)
+        local retour ={}
+        for i, layer in ipairs(self.layers) do
+            if layer.type=="objectgroup" then
+                for j,object in ipairs(layer.objects) do
+                    if object.name==name then
+                        table.insert(retour,object)
+                    end
+                end
+            end
+        end
+        if #retour == 0 then
+            return nil
+        end
+        if #retour == 1 then
+            return retour[1]
+        end
+        return retour
+    end
     
     return map
 end

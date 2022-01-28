@@ -1,4 +1,4 @@
-function createPlayer(x,y,anims,dir)
+function createPlayer(x,y,anims,dir,width,height)
     local player={
         gridX=x or 0,
         gridY=y or 0,
@@ -7,9 +7,16 @@ function createPlayer(x,y,anims,dir)
         --tile walk per seconds
         speed=3,
         anims = anims,
-        direction=dir or "bottom"
+        direction=dir or "bottom",
+        width=anims.left.frameWidth,
+        height=anims.left.frameHeight,
     }
-    player.currentAnim=player.anims[player.direction]
+    player.currentAnim=player.anims[player.direction] 
+    local playerMapObject = _G.map:getObject("player")
+    player.gridX=math.floor(playerMapObject.x/_G.map.tilewidth)
+    player.gridY=math.floor(playerMapObject.y/_G.map.tileheight)
+    player.newGridX=player.gridX
+    player.newGridY=player.gridY
 
     function player:update(dt)
         if(self.gridX==self.newGridX and self.gridY==self.newGridY)then
@@ -17,28 +24,25 @@ function createPlayer(x,y,anims,dir)
             self.newGridY=self.gridY
             self.currentAnim:pause(2)
             if love.keyboard.isDown('up') then
-                if _G.currentMap:isSolid(self.gridX,self.gridY - 1) ~=true then
+                if _G.map:isSolid(self.gridX,self.gridY - 1) ~=true then
                     self.newGridY=self.newGridY - 1
                     self.currentAnim:play()
                 end
                 self:defineDirection('top')
-            end
-            if love.keyboard.isDown('down') then
-                if _G.currentMap:isSolid(self.gridX,self.gridY + 1) ~=true then
+            elseif love.keyboard.isDown('down') then
+                if _G.map:isSolid(self.gridX,self.gridY + 1) ~=true then
                     self.newGridY=self.newGridY + 1
                     self.currentAnim:play()
                 end
                 self:defineDirection('bottom')
-            end
-            if love.keyboard.isDown('left') then
-                if _G.currentMap:isSolid(self.gridX - 1,self.gridY) ~=true then
+            elseif love.keyboard.isDown('left') then
+                if _G.map:isSolid(self.gridX - 1,self.gridY) ~=true then
                     self.newGridX=self.newGridX - 1
                     self.currentAnim:play()
                 end
                 self:defineDirection('left')
-            end
-            if love.keyboard.isDown('right') then
-                if _G.currentMap:isSolid(self.gridX + 1,self.gridY) ~=true then
+            elseif love.keyboard.isDown('right') then
+                if _G.map:isSolid(self.gridX + 1,self.gridY) ~=true then
                     self.newGridX=self.newGridX + 1 
                     self.currentAnim:play()
                 end
@@ -73,9 +77,12 @@ function createPlayer(x,y,anims,dir)
     end
 
     function player:absPos(px,py)
-        return {x=math.floor(px*_G.currentMap.tileset.tilewidth+0.5),y=math.floor(py*_G.currentMap.tileset.tileheight+0.5)}
+        return {x=math.floor(px*_G.map.tileset.tilewidth+0.5),y=math.floor(py*_G.map.tileset.tileheight+0.5)}
     end
 
+        local pos =player:absPos(player.gridX,player.gridY)
+    player.xx=pos.x
+    player.yy=pos.y
     return player
 
 end

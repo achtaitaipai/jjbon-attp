@@ -2,9 +2,7 @@ require("modules/loadTiledMap")
 require("modules/player")
 require("modules/spriteSheet")
 require("modules/anim")
-
---scale of the game
-_G.scale=2
+require("modules/camera")
 
 function love.load()
     --scale pixels without blur
@@ -27,11 +25,11 @@ function love.load()
 
     --create the map
     local mapFile=require("assets/testMap")
-    _G.currentMap=loadTiledMap(mapFile, spriteSheet)
+    _G.map=loadTiledMap(mapFile, spriteSheet)
     --create the player
     --position x in the grid, position y in the gris, animations array with: top, bottom, left and right
-    _G.player=createPlayer(15,15,playerAnims)
-
+    _G.player=createPlayer(7,7,playerAnims,"bottom",8,8)
+    _G.camera=createCamera(32,32,2)
 end
 
 function love.update(dt)
@@ -39,7 +37,7 @@ function love.update(dt)
 end
 
 function love.draw()
-    love.graphics.scale(_G.scale)
-    _G.currentMap:drawTiles()
+    _G.camera:up()
+    _G.map:drawTiles()
     _G.player:draw()
 end

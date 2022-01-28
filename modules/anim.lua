@@ -7,7 +7,9 @@ function createAnim(spriteSheet,frameList,fps,flip,pauseFrame)
         fps=fps or 5,
         flip=flip or false,
         pauseFrame=pauseFrame,
-        time=0
+        time=0,
+        frameWidth=spriteSheet.frameWidth,
+        frameHeight=spriteSheet.frameHeight
     }
 
     function anim:play(frame)
