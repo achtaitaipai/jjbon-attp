@@ -4,9 +4,8 @@ function createPlayer(x,y,anims,dir)
         gridY=y or 0,
         newGridX=x or 0,
         newGridY=y or 0,
-        --tile per seconds
+        --tile walk per seconds
         speed=3,
-        sprite=love.graphics.newImage('assets/player.png'),
         anims = anims,
         direction=dir or "bottom"
     }
@@ -18,24 +17,32 @@ function createPlayer(x,y,anims,dir)
             self.newGridY=self.gridY
             self.currentAnim:pause(2)
             if love.keyboard.isDown('up') then
-                self.newGridY=self.newGridY - 1
+                if _G.currentMap:isSolid(self.gridX,self.gridY - 1) ~=true then
+                    self.newGridY=self.newGridY - 1
+                    self.currentAnim:play()
+                end
                 self:defineDirection('top')
-                self.currentAnim:play()
             end
             if love.keyboard.isDown('down') then
-                self.newGridY=self.newGridY + 1
+                if _G.currentMap:isSolid(self.gridX,self.gridY + 1) ~=true then
+                    self.newGridY=self.newGridY + 1
+                    self.currentAnim:play()
+                end
                 self:defineDirection('bottom')
-                self.currentAnim:play()
             end
             if love.keyboard.isDown('left') then
-                self.newGridX=self.newGridX - 1
+                if _G.currentMap:isSolid(self.gridX - 1,self.gridY) ~=true then
+                    self.newGridX=self.newGridX - 1
+                    self.currentAnim:play()
+                end
                 self:defineDirection('left')
-                self.currentAnim:play()
             end
             if love.keyboard.isDown('right') then
-                self.newGridX=self.newGridX + 1 
+                if _G.currentMap:isSolid(self.gridX + 1,self.gridY) ~=true then
+                    self.newGridX=self.newGridX + 1 
+                    self.currentAnim:play()
+                end
                 self:defineDirection('right')
-                self.currentAnim:play()
             end
         else
             if(self.newGridX>self.gridX)then
@@ -66,7 +73,7 @@ function createPlayer(x,y,anims,dir)
     end
 
     function player:absPos(px,py)
-        return {x=math.floor(px*_G.map.tileset.tilewidth+0.5),y=math.floor(py*_G.map.tileset.tileheight+0.5)}
+        return {x=math.floor(px*_G.currentMap.tileset.tilewidth+0.5),y=math.floor(py*_G.currentMap.tileset.tileheight+0.5)}
     end
 
     return player

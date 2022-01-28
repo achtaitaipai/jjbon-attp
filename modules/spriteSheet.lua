@@ -1,4 +1,4 @@
-function createSpriteSheet(imgPath,frameWidth,frameHeight)
+function loadSpriteSheet(imgPath,frameWidth,frameHeight)
     local spriteSheet={
         image=love.graphics.newImage(imgPath),
         frameWidth=frameWidth,
