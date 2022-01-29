@@ -8,8 +8,10 @@ function createPlayer(x,y,anims,dir,width,height)
         speed=3,
         anims = anims,
         direction=dir or "bottom",
-        width=anims.left.frameWidth,
-        height=anims.left.frameHeight,
+        width=width,
+        height=height,
+        wCell=math.floor(math.max(1,width/_G.map.tilewidth)),
+        hCell=math.floor(math.max(1,height/_G.map.tileheight))
     }
     player.currentAnim=player.anims[player.direction] 
     local playerMapObject = _G.map:getObject("player")
@@ -24,29 +26,29 @@ function createPlayer(x,y,anims,dir,width,height)
             self.newGridY=self.gridY
             self.currentAnim:pause(2)
             if love.keyboard.isDown('up') then
+                self:defineDirection('top')
                 if _G.map:isSolid(self.gridX,self.gridY - 1) ~=true then
                     self.newGridY=self.newGridY - 1
                     self.currentAnim:play()
                 end
-                self:defineDirection('top')
             elseif love.keyboard.isDown('down') then
-                if _G.map:isSolid(self.gridX,self.gridY + 1) ~=true then
+                self:defineDirection('bottom')
+                if self:collide() ~=true then
                     self.newGridY=self.newGridY + 1
                     self.currentAnim:play()
                 end
-                self:defineDirection('bottom')
             elseif love.keyboard.isDown('left') then
-                if _G.map:isSolid(self.gridX - 1,self.gridY) ~=true then
+                self:defineDirection('left')
+                if self:collide() ~=true then
                     self.newGridX=self.newGridX - 1
                     self.currentAnim:play()
                 end
-                self:defineDirection('left')
             elseif love.keyboard.isDown('right') then
-                if _G.map:isSolid(self.gridX + 1,self.gridY) ~=true then
+                self:defineDirection('right')
+                if self:collide() ~=true then
                     self.newGridX=self.newGridX + 1 
                     self.currentAnim:play()
                 end
-                self:defineDirection('right')
             end
         else
             if(self.newGridX>self.gridX)then
@@ -66,6 +68,37 @@ function createPlayer(x,y,anims,dir,width,height)
         self.xx=pos.x
         self.yy=pos.y
     end
+
+    function player:collide()
+        if self.direction=="right" then
+            for y=0,self.hCell - 1 do
+                if _G.map:isSolid(self.gridX + self.wCell,self.gridY+y) ==true then
+                    return true
+                end
+            end
+        elseif self.direction=="left" then
+            for y=0,self.hCell - 1 do
+                if _G.map:isSolid(self.gridX - 1,self.gridY+y) ==true then
+                    return true
+                end
+            end
+        elseif self.direction=="bottom" then
+            for x=0,self.wCell - 1 do
+                if _G.map:isSolid(self.gridX + x,self.gridY+self.hCell) ==true then
+                    return true
+                end
+            end
+        elseif self.direction=="top" then
+            for x=0,self.wCell - 1 do
+                if _G.map:isSolid(self.gridX + x,self.gridY - 1) ==true then
+                    return true
+                end
+            end
+        end
+        return false
+
+    end
+    
 
     function player:defineDirection(dir)
         self.direction=dir

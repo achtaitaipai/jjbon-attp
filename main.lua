@@ -13,7 +13,7 @@ function love.load()
     local spriteSheet=loadSpriteSheet("assets/attpjjbon.png",8,8)
 
     --define the anims of the player
-    local playerSpriteSheet=loadSpriteSheet('assets/playerAnim.png',8,8)
+    local playerSpriteSheet=loadSpriteSheet('assets/playerAnimx16.png',16,16)
     local fps =8
     playerAnims={
         --spriteSheet, index of the frames to display in the order, fps, flip the image or not, frame to display in peuse mode
@@ -28,7 +28,7 @@ function love.load()
     _G.map=loadTiledMap(mapFile, spriteSheet)
     --create the player
     --position x in the grid, position y in the gris, animations array with: top, bottom, left and right
-    _G.player=createPlayer(7,7,playerAnims,"bottom",8,8)
+    _G.player=createPlayer(7,7,playerAnims,"bottom",16,16)
     _G.camera=createCamera(32,32,2)
 end
 
