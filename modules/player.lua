@@ -14,7 +14,7 @@ function createPlayer(x,y,anims,dir,width,height)
         hCell=math.floor(math.max(1,height/_G.map.tileheight))
     }
     player.currentAnim=player.anims[player.direction] 
-    local playerMapObject = _G.map:getObject("player")
+    local playerMapObject = _G.map:getObject("player")[1]
     player.gridX=math.floor(playerMapObject.x/_G.map.tilewidth)
     player.gridY=math.floor(playerMapObject.y/_G.map.tileheight)
     player.newGridX=player.gridX
@@ -27,7 +27,7 @@ function createPlayer(x,y,anims,dir,width,height)
             self.currentAnim:pause(2)
             if love.keyboard.isDown('up') then
                 self:defineDirection('top')
-                if _G.map:isSolid(self.gridX,self.gridY - 1) ~=true then
+                if self:collide() ~=true then
                     self.newGridY=self.newGridY - 1
                     self.currentAnim:play()
                 end
@@ -72,24 +72,36 @@ function createPlayer(x,y,anims,dir,width,height)
     function player:collide()
         if self.direction=="right" then
             for y=0,self.hCell - 1 do
+                if _G.solids:isSolid(self.gridX + self.wCell,self.gridY+y) ==true then
+                    return true
+                end
                 if _G.map:isSolid(self.gridX + self.wCell,self.gridY+y) ==true then
                     return true
                 end
             end
         elseif self.direction=="left" then
             for y=0,self.hCell - 1 do
+                if _G.solids:isSolid(self.gridX - 1,self.gridY+y) ==true then
+                    return true
+                end
                 if _G.map:isSolid(self.gridX - 1,self.gridY+y) ==true then
                     return true
                 end
             end
         elseif self.direction=="bottom" then
             for x=0,self.wCell - 1 do
+                if _G.solids:isSolid(self.gridX + x,self.gridY+self.hCell) ==true then
+                    return true
+                end
                 if _G.map:isSolid(self.gridX + x,self.gridY+self.hCell) ==true then
                     return true
                 end
             end
         elseif self.direction=="top" then
             for x=0,self.wCell - 1 do
+                if _G.solids:isSolid(self.gridX + x,self.gridY - 1) ==true then
+                    return true
+                end
                 if _G.map:isSolid(self.gridX + x,self.gridY - 1) ==true then
                     return true
                 end

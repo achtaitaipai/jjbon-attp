@@ -5,12 +5,12 @@ function createDialogBox(width,height,margin,scale)
         margin=margin,
         scale=scale or 2,
         stroke=2,
-        active=true,
+        active=false,
         xR=(love.graphics.getWidth()-(width+margin))*0.5,
         yR=love.graphics.getHeight()-(height+margin*3),
         xT=(love.graphics.getWidth()-(width))*0.5,
         yT=love.graphics.getHeight()-(height+margin*2),
-        txt="bonjour comment ca va !*je suis ravi de l'apprendre !",
+        txt="",
         index=1,
         keyPressed=false,
         delay=0.05,
@@ -18,23 +18,6 @@ function createDialogBox(width,height,margin,scale)
         charIndex=1,
         txtShow="",
     }
-    local txtArr=string.explode(dialogBox.txt,'*')
-    local txt={}
-    for i=1, #txtArr do
-        local txt1=txtArr[i]
-        local txt2=txtArr[i*2+2] or ""
-        table.insert(txt,txt1)
-    end
-    dialogBox.txt=txt
-
-    function dialogBox:up()
-
-        if love.keyboard.isDown('space') and self.keyPressed == false then
-            self.keyPressed=true
-        else
-            self.keyPressed=false
-        end
-    end
 
     function dialogBox:draw()
         if self.active then
@@ -93,6 +76,21 @@ function createDialogBox(width,height,margin,scale)
                 self.index=1
                 self.active=false
             end
+        end
+    end
+
+    function dialogBox:open(txt)
+        self.txt={}
+        self.active=true
+        self.index=1
+        self.charIndex=1
+        self.time=0
+        self.txtShow=""
+
+        local txtArr=string.explode(txt,'*')
+        for i=1, #txtArr do
+            local txt1=txtArr[i]
+            table.insert(self.txt,txt1)
         end
     end
     return dialogBox

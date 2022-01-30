@@ -9,7 +9,7 @@ return {
   tilewidth = 8,
   tileheight = 8,
   nextlayerid = 4,
-  nextobjectid = 3,
+  nextobjectid = 8,
   properties = {},
   tilesets = {
     {
@@ -154,15 +154,62 @@ return {
       properties = {},
       objects = {
         {
-          id = 2,
+          id = 3,
           name = "player",
-          type = "",
+          type = "player",
           shape = "rectangle",
-          x = 173.579,
-          y = 116.695,
-          width = 0,
-          height = 0,
+          x = 130.021,
+          y = 25.4807,
+          width = 8,
+          height = 8,
           rotation = 0,
+          gid = 37,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 5,
+          name = "",
+          type = "solid",
+          shape = "rectangle",
+          x = 168,
+          y = 32,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          gid = 38,
+          visible = true,
+          properties = {
+            ["dialog"] = "bonjour ! *j'espere que tu vas bien !"
+          }
+        },
+        {
+          id = 6,
+          name = "",
+          type = "solid",
+          shape = "rectangle",
+          x = 96,
+          y = 40,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          gid = 23,
+          visible = true,
+          properties = {
+            ["dialog"] = "qu'est ce qu'elle a*ma gueule !"
+          }
+        },
+        {
+          id = 7,
+          name = "",
+          type = "solid",
+          shape = "rectangle",
+          x = 160,
+          y = 16,
+          width = 8,
+          height = 8,
+          rotation = 0,
+          gid = 249,
           visible = true,
           properties = {}
         }
