@@ -1,28 +1,29 @@
-function createDialogBox(width,height,margin)
+function createDialogBox(width,height,margin,scale)
     local dialogBox = {
         width=width,
         height=height,
         margin=margin,
+        scale=scale or 2,
         stroke=2,
         active=true,
         xR=(love.graphics.getWidth()-(width+margin))*0.5,
         yR=love.graphics.getHeight()-(height+margin*3),
         xT=(love.graphics.getWidth()-(width))*0.5,
         yT=love.graphics.getHeight()-(height+margin*2),
-        txt="bonjour comment ca*va !*je suis ravi de*l'apprendre",
+        txt="bonjour comment ca va !*je suis ravi de l'apprendre !",
         index=1,
         keyPressed=false,
         delay=0.05,
         time=0,
         charIndex=1,
-        txtShow=""
+        txtShow="",
     }
     local txtArr=string.explode(dialogBox.txt,'*')
     local txt={}
-    for i=0, math.round(#txtArr/2)-1 do
-        local txt1=txtArr[i*2+1] or ""
+    for i=1, #txtArr do
+        local txt1=txtArr[i]
         local txt2=txtArr[i*2+2] or ""
-        table.insert(txt,txt1..'\n'..txt2)
+        table.insert(txt,txt1)
     end
     dialogBox.txt=txt
 
@@ -39,24 +40,31 @@ function createDialogBox(width,height,margin)
         if self.active then
             self:animText()
             love.graphics.push()
+            love.graphics.scale(self.scale)
+            love.graphics.translate(love.graphics.getWidth()*(0.5/self.scale),love.graphics.getWidth()/self.scale -(self.height+self.margin*2))
             love.graphics.setColor(0,0,0,1)
             love.graphics.setLineWidth(self.stroke)
             love.graphics.rectangle(
                 "fill",
-                self.xR,
-                self.yR,
+                -(self.width+self.margin*2)/2,
+                -(self.height+self.margin*2)/2,
                 self.width+self.margin*2,
                 self.height+self.margin*2
             )
             love.graphics.setColor(255,255,255,1)
             love.graphics.rectangle(
                 "line",
-                self.xR,
-                self.yR,
+                -(self.width+self.margin*2)/2,
+                -(self.height+self.margin*2)/2,
                 self.width+self.margin*2,
                 self.height+self.margin*2
             )
-            love.graphics.print(self.txtShow,self.xT,self.yT)
+            love.graphics.printf(
+                self.txtShow,
+                -self.width/2,
+                -self.height/2,
+                self.width,
+                "left")
             love.graphics.pop()
         end
 

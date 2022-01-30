@@ -34,8 +34,8 @@ function love.load()
     --create the player
     --position x in the grid, position y in the gris, animations array with: top, bottom, left and right
     _G.player=createPlayer(7,7,playerAnims,"bottom",8,8)
-    _G.camera=createCamera(32,32,2)
-    _G.dialogBox=createDialogBox(128,16,16)
+    _G.camera=createCamera(32,32,3,true)
+    _G.dialogBox=createDialogBox(128,16,5,1)
 end
 
 function love.update(dt)
