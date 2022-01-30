@@ -3,6 +3,7 @@ function createDialogBox(width,height,margin)
         width=width,
         height=height,
         margin=margin,
+        stroke=2,
         active=true,
         xR=(love.graphics.getWidth()-(width+margin))*0.5,
         yR=love.graphics.getHeight()-(height+margin*3),
@@ -37,6 +38,17 @@ function createDialogBox(width,height,margin)
     function dialogBox:draw()
         if self.active then
             self:animText()
+            love.graphics.push()
+            love.graphics.setColor(0,0,0,1)
+            love.graphics.setLineWidth(self.stroke)
+            love.graphics.rectangle(
+                "fill",
+                self.xR,
+                self.yR,
+                self.width+self.margin*2,
+                self.height+self.margin*2
+            )
+            love.graphics.setColor(255,255,255,1)
             love.graphics.rectangle(
                 "line",
                 self.xR,
@@ -45,6 +57,7 @@ function createDialogBox(width,height,margin)
                 self.height+self.margin*2
             )
             love.graphics.print(self.txtShow,self.xT,self.yT)
+            love.graphics.pop()
         end
 
     end

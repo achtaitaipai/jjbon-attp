@@ -52,8 +52,8 @@ function love.draw()
     _G.map:drawTiles()
     _G.player:draw()
     love.graphics.pop()
-    
     _G.dialogBox:draw()
+    
 end
 
 function love.keypressed( key )

@@ -1,8 +1,9 @@
-function createCamera(width,height, scale)
+function createCamera(width,height, scale, clamp)
     local camera={
         width = 32,
         height = 32,
-        scale=scale or 1
+        scale=scale or 1,
+        clamp=clamp or true
     }
     camera.tx=(love.graphics.getWidth()/2)/camera.scale - _G.player.xx - _G.player.width/2
     camera.ty=(love.graphics.getHeight()/2)/camera.scale - _G.player.yy - _G.player.height/2
@@ -25,12 +26,23 @@ function createCamera(width,height, scale)
         if(_G.player.yy<topBorder)then
             self.ty=self.ty+1
         end
-        self.ty=math.min(0,self.ty)
-        self.tx=math.min(0,self.tx)
-        self.ty=math.max(-love.graphics.getHeight()/2,self.ty)
-        self.tx=math.max(-love.graphics.getWidth()/2,self.tx)
+        if clamp==true then
+            local hMax=math.max((_G.map.height*_G.map.tileheight*self.scale-love.graphics.getHeight())/self.scale)
+            local wMax=math.max((_G.map.width*_G.map.tilewidth*self.scale-love.graphics.getWidth())/self.scale)
+            self.ty=math.min(0,self.ty)
+            self.tx=math.min(0,self.tx)
+            self.ty=math.max(-hMax,self.ty)
+            self.tx=math.max(-wMax,self.tx)
+        end
         love.graphics.scale(self.scale)
         love.graphics.translate(self.tx,self.ty)
+    end
+
+    function camera:absolutePosition(xx,yy)
+       return {
+            x=(xx-self.tx)/self.scale,
+            y=(yy-self.ty)/self.scale, 
+        }
     end
     return camera
 end
