@@ -81,12 +81,12 @@
   <object id="3" name="player" type="player" gid="37" x="130.021" y="25.4807" width="8" height="8"/>
   <object id="5" type="solid" gid="38" x="168" y="32" width="8" height="8">
    <properties>
-    <property name="dialog" value="bonjour ! *j'espere que tu vas bien !"/>
+    <property name="dialog" value="bonjour ! j'espere que tu vas bien !"/>
    </properties>
   </object>
   <object id="6" type="solid" gid="23" x="96" y="40" width="8" height="8">
    <properties>
-    <property name="dialog" value="qu'est ce qu'elle a*ma gueule !"/>
+    <property name="dialog" value="quoi ma gueule qu'est ce qu'elle a ma gueule"/>
    </properties>
   </object>
   <object id="7" type="solid" gid="249" x="160" y="16" width="8" height="8"/>

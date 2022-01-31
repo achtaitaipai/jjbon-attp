@@ -1,9 +1,11 @@
-function createDialogBox(width,height,margin,scale)
+function createDialogBox(width,height,margin,lengthLines,numberOfLines,scale)
     local dialogBox = {
         width=width,
         height=height,
         margin=margin,
         scale=scale or 2,
+        lengthLines= lengthLines,
+        numberOfLines=numberOfLines,
         stroke=2,
         active=false,
         xR=(love.graphics.getWidth()-(width+margin))*0.5,
@@ -87,10 +89,18 @@ function createDialogBox(width,height,margin,scale)
         self.time=0
         self.txtShow=""
 
-        local txtArr=string.explode(txt,'*')
-        for i=1, #txtArr do
-            local txt1=txtArr[i]
-            table.insert(self.txt,txt1)
+        local txtArr = string.splitByLength(txt,self.lengthLines)
+        for i=0, math.floor(#txtArr / self.numberOfLines) do
+            local txt = txtArr[2 * i +1] or ''
+            for j=1,numberOfLines - 1 do
+                if( txtArr[2 * i +1 + j]) then
+                    txt = txt..'\n'.. txtArr[2 * i +1 + j]
+                end
+            end
+            if txt ~="" then
+                table.insert( self.txt, txt )
+            end
+            
         end
     end
     return dialogBox

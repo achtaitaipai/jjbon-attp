@@ -1,7 +1,7 @@
 function createCamera(width,height, scale, clamp)
     local camera={
-        width = 32,
-        height = 32,
+        width = width,
+        height = height,
         scale=scale or 1,
         clamp=clamp or true
     }

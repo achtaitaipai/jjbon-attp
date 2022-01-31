@@ -1,7 +1,7 @@
-function createPlayer(x,y,anims,dir,width,height)
+function createPlayer(anims,dir,width,height)
     local player={
-        gridX=x or 0,
-        gridY=y or 0,
+        gridX=0,
+        gridY=0,
         newGridX=x or 0,
         newGridY=y or 0,
         --tile walk per seconds

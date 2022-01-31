@@ -16,7 +16,7 @@ function love.load()
 
     --create spriteSheet
     -- path to the file, width of each sprite, height of each sprite
-    spriteSheet=loadSpriteSheet("assets/attpjjbon.png",8,8)
+    local spriteSheet=loadSpriteSheet("assets/attpjjbon.png",8,8)
 
     --define the anims of the player
     local playerSpriteSheet=loadSpriteSheet('assets/playerAnim.png',8,8)
@@ -33,12 +33,14 @@ function love.load()
     local mapFile=require("assets/testMap")
     _G.map=loadTiledMap(mapFile, spriteSheet)
 
-    _G.dialogBox=createDialogBox(128,16,8,2)
+    -- width, height, margin,maximum length of each line, number of lines, scale
+    _G.dialogBox=createDialogBox(128,16,8,16,2,1)
     --create the player
     --position x in the grid, position y in the gris, animations array with: top, bottom, left and right
-    _G.player=createPlayer(7,7,playerAnims,"bottom",8,8)
+    _G.player=createPlayer(playerAnims,"bottom",8,8)
     _G.solids=createSolidObjects(spriteSheet)
-    _G.camera=createCamera(32,32,3,true)
+    _G.camera=createCamera(128,128,2,true)
+
 end
 
 function love.update(dt)
@@ -48,7 +50,6 @@ function love.update(dt)
 end
 
 function love.draw()
-
     love.graphics.push()
     _G.camera:up()
     _G.map:drawTiles()
@@ -56,7 +57,6 @@ function love.draw()
     _G.solids:draw()
     love.graphics.pop()
     _G.dialogBox:draw()
-    
 end
 
 function love.keypressed( key )

@@ -180,7 +180,7 @@ return {
           gid = 38,
           visible = true,
           properties = {
-            ["dialog"] = "bonjour ! *j'espere que tu vas bien !"
+            ["dialog"] = "bonjour ! j'espere que tu vas bien !"
           }
         },
         {
@@ -196,7 +196,7 @@ return {
           gid = 23,
           visible = true,
           properties = {
-            ["dialog"] = "qu'est ce qu'elle a*ma gueule !"
+            ["dialog"] = "quoi ma gueule qu'est ce qu'elle a ma gueule"
           }
         },
         {

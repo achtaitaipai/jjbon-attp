@@ -12,6 +12,22 @@ function string.explode(str, div)
     return o
 end
 
+function string.splitByLength(str,maxLength)
+    local arr = str.explode(str,' ')
+    local txt=''
+    local splitedTxt={}
+    while #arr >= 1 do
+        while #arr >= 1 and #(txt..arr[1])<=maxLength do
+            txt=txt..table.remove(arr,1)..' '
+        end
+        table.insert( splitedTxt,txt)
+        txt=""
+    end
+    
+    return splitedTxt
+   
+end
+
 function math.round(n)
     return math.floor(n+0.5)
 end
