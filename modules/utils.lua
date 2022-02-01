@@ -20,6 +20,7 @@ function string.splitByLength(str,maxLength)
         while #arr >= 1 and #(txt..arr[1])<=maxLength do
             txt=txt..table.remove(arr,1)..' '
         end
+        txt=txt:sub(1, -2)
         table.insert( splitedTxt,txt)
         txt=""
     end

@@ -94,7 +94,7 @@ function createDialogBox(width,height,margin,lengthLines,numberOfLines,scale)
             local txt = txtArr[2 * i +1] or ''
             for j=1,numberOfLines - 1 do
                 if( txtArr[2 * i +1 + j]) then
-                    txt = txt..'\n'.. txtArr[2 * i +1 + j]
+                    txt = txt..'\n'.. txtArr[2 * i +1 + j] or ''
                 end
             end
             if txt ~="" then

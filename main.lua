@@ -30,7 +30,7 @@ function love.load()
     }
 
     --create the map
-    local mapFile=require("assets/testMap")
+    local mapFile=require("assets/carte")
     _G.map=loadTiledMap(mapFile, spriteSheet)
 
     -- width, height, margin,maximum length of each line, number of lines, scale
