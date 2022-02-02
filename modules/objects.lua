@@ -1,23 +1,29 @@
-function createSolidObjects(spriteSheet)
+function createSolidObjects(spriteSheet,map,dialogBox)
     local objects={
         list={}
     }
-    local solids =_G.map:getObject("solid")
+    local solids =map:getObject("solid")
     for i,solid in ipairs(solids) do
-        -- print(solid.properties.dialog)
         local object ={
-            gridX= math.round(solid.x/_G.map.tilewidth),
-            gridY= math.round(solid.y/_G.map.tileheight),
+            gridX= math.round(solid.x/map.tilewidth),
+            gridY= math.round(solid.y/map.tileheight),
             dialog = solid.properties.dialog,
-            frame=solid.gid
+            sprite=solid.gid,
+            anim=solid.anim,
+            map=map,
+            dialogBox=dialogBox
         }
         function object:draw()
-            spriteSheet:draw(self.frame,self.gridX*_G.map.tilewidth,self.gridY*_G.map.tilewidth)
+            if self.anim ~= nil then
+                self.anim:draw(self.gridX*self.map.tilewidth,self.gridY*self.map.tilewidth)
+            else
+                spriteSheet:draw(self.sprite,self.gridX*self.map.tilewidth,self.gridY*self.map.tilewidth)
+            end
         end
 
         function object:collidePlayer()
             if self.dialog ~= nil then
-                _G.dialogBox:open(self.dialog)
+                self.dialogBox:open(self.dialog)
             end
         end
 

@@ -16,7 +16,7 @@ function loadTiledMap(map,spriteSheet)
                         id=tileId
                     }
 
-                    for i=1,#map.tileset.tiles do
+                    for i=1, #map.tileset.tiles do
                         if map.tileset.tiles[i].id == tileId - 1 then
                             local  frames = {}
                             for i,f in ipairs(map.tileset.tiles[i].animation) do
@@ -81,8 +81,20 @@ function loadTiledMap(map,spriteSheet)
                 for j,object in ipairs(layer.objects) do
                     if object.type==type then
                         local obj = object
-                        obj.y = obj.y - map.spriteSheet.frameHeight
                         --Tiled export with Y starting to 1 tile and x starting to 0
+                        obj.y = obj.y - self.spriteSheet.frameHeight
+                        local tileId = obj.gid
+                        for i,tile in ipairs(self.tileset.tiles) do
+                            if tileId -1 == tile.id then
+                                local  frames = {}
+                                for i,f in ipairs(self.tileset.tiles[i].animation) do
+                                    table.insert(frames,f.tileid + 1)
+                                end
+                                local fps = 1000 /(self.tileset.tiles[i].animation[1].duration)
+                                obj.anim=createAnim(self.spriteSheet,frames,fps)
+                                obj.anim:play()
+                            end
+                        end
                         table.insert(retour,obj)
                     end
                 end
