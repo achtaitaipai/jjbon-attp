@@ -48,3 +48,5 @@ function createCamera(target,map,width,height, scale, clamp)
     end
     return camera
 end
+
+return createCamera

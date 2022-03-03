@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="6">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="30" height="30" tilewidth="8" tileheight="8" infinite="0" nextlayerid="3" nextobjectid="10">
  <editorsettings>
+  <chunksize width="32" height="32"/>
   <export target="carte.lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" name="attpjjbon" tilewidth="8" tileheight="8" tilecount="256" columns="16">
@@ -13,6 +14,15 @@
     <frame tileid="176" duration="100"/>
     <frame tileid="177" duration="100"/>
     <frame tileid="178" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="185">
+   <animation>
+    <frame tileid="185" duration="100"/>
+    <frame tileid="232" duration="100"/>
+    <frame tileid="233" duration="100"/>
+    <frame tileid="234" duration="100"/>
+    <frame tileid="235" duration="100"/>
    </animation>
   </tile>
   <tile id="219">
@@ -31,15 +41,15 @@
   <data encoding="csv">
 0,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,0,0,0,
 49,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+50,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,38,
 51,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 52,0,0,0,0,0,0,0,220,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-53,0,0,0,0,0,0,0,0,34,34,34,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-54,0,0,0,0,0,0,0,0,34,0,0,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-55,0,0,0,0,0,0,0,0,34,34,34,34,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+53,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+54,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+55,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 56,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 57,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+58,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,220,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -70,5 +80,8 @@
   </object>
   <object id="4" type="solid" gid="2" x="80" y="56" width="8" height="8"/>
   <object id="5" type="solid" gid="4" x="88" y="56" width="8" height="8"/>
+  <object id="6" gid="4" x="144" y="48" width="8" height="8"/>
+  <object id="7" gid="221" x="144" y="56" width="8" height="8"/>
+  <object id="8" type="solid" gid="220" x="80" y="72" width="8" height="8"/>
  </objectgroup>
 </map>

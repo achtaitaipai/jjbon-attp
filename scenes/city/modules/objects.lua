@@ -47,3 +47,5 @@ function createSolidObjects(spriteSheet,map,dialogBox)
     end
     return objects
 end
+
+return createSolidObjects

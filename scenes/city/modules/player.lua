@@ -13,7 +13,8 @@ function createPlayer(anims,dir,width,height,map,solids)
         width=width,
         height=height,
         wCell=math.floor(math.max(1,width/map.tilewidth)),
-        hCell=math.floor(math.max(1,height/map.tileheight))
+        hCell=math.floor(math.max(1,height/map.tileheight)),
+        walk=false
     }
     player.currentAnim=player.anims[player.direction] 
     local playerMapObject = player.map:getObject("player")[1]
@@ -23,9 +24,11 @@ function createPlayer(anims,dir,width,height,map,solids)
     player.newGridY=player.gridY
 
     function player:update(dt)
-        if(self.gridX==self.newGridX and self.gridY==self.newGridY)then
-            self.newGridX=self.gridX
-            self.newGridY=self.gridY
+            if(self.gridX==self.newGridX and self.gridY==self.newGridY)then
+            if self.walk == true then
+                print('arrivé')
+                self.walk=false
+            end
             self.currentAnim:pause(2)
             if love.keyboard.isDown('up') then
                 self:defineDirection('top')
@@ -53,6 +56,7 @@ function createPlayer(anims,dir,width,height,map,solids)
                 end
             end
         else
+            self.walk=true
             if(self.newGridX>self.gridX)then
                 self.gridX=math.min(self.gridX+self.speed*dt,self.newGridX)
             end
@@ -133,3 +137,5 @@ function createPlayer(anims,dir,width,height,map,solids)
     return player
 
 end
+
+return createPlayer
